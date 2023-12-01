@@ -8,7 +8,7 @@ class Flickr8k(Dataset):
                  path: str,
                  device: str = "cpu"):
         data = torch.load(path)
-        self.x = data["x"].to(device)
+        self.x = data["x"].to(device) / 127.5 - 1
         self.y = data["y"].to(device)
 
     def __len__(self):
@@ -17,7 +17,7 @@ class Flickr8k(Dataset):
     def __getitem__(self, key: int) -> tuple[torch.Tensor, torch.Tensor]:
         x = self.x[key]
         y = self.y[:, key]
-        rand = randint(0, y.shape[-1])
+        rand = randint(0, y.shape[-1] - 1)
         y = y[:, rand]
 
         return (x, y)
