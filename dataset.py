@@ -8,7 +8,7 @@ class Flickr8k(Dataset):
                  device: str = "cpu"):
         data = torch.load(path)
         self.x = data["x"].to(device)
-        self.y = data["y"].to(device)[:, :, 0]
+        self.y = data["y"].to(device)
 
     def __len__(self):
         return self.x.shape[0]
